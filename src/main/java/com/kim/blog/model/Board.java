@@ -1,5 +1,6 @@
 package com.kim.blog.model;
 
+import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -8,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
+@Data
 public class Board {
 
     @Id
@@ -20,7 +22,7 @@ public class Board {
     @Lob // 대용량 데이터
     private String content;
 
-    @ColumnDefault("0")
+    // 조회수
     private int count;
 
     @ManyToOne(fetch = FetchType.EAGER) // 보드가 매니, 유저는 원 : 하나의 유저는 여러개의 게시글을 쓸 수 있다.
