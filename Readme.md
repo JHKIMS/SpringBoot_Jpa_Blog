@@ -1,7 +1,7 @@
 ## BOOT+JPA 블로그
 
 
-###의존성 추가</br>
+### 의존성 추가</br>
 - Spring Boot DevTools</br>
 - Lombok</br>
 - Spring Data Jpa</br>

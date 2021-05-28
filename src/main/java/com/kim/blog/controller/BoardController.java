@@ -4,10 +4,14 @@ import com.kim.blog.config.auth.PrincipalDetail;
 import com.kim.blog.service.BoardService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class BoardController {
@@ -16,8 +20,8 @@ public class BoardController {
     private BoardService boardService;
 
     @GetMapping({"", "/"})
-    public String index(Model model) { // 파라미터로 세션에 접근한다. @AuthenticationPrincipal PrincipalDetail principal
-        model.addAttribute("boards", boardService.list());
+    public String index(Model model, @PageableDefault(size=3, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) { // 파라미터로 세션에 접근한다. @AuthenticationPrincipal PrincipalDetail principal
+        model.addAttribute("boards", boardService.list(pageable));
         return "index";
     }
 
@@ -25,5 +29,17 @@ public class BoardController {
     @GetMapping("/board/saveForm")
     public String saveForm(){
         return "board/saveForm";
+    }
+
+    @GetMapping("/board/{id}")
+    public String findById(@PathVariable int id, Model model) {
+        model.addAttribute("board", boardService.detailView(id));
+        return "board/detail";
+    }
+
+    @GetMapping("/board/{id}/updateForm")
+    public String updateForm(@PathVariable int id, Model model){
+        model.addAttribute("board", boardService.detailView(id));
+        return "board/updateForm";
     }
 }
