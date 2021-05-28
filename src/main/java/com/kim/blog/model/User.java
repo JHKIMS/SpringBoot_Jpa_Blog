@@ -16,8 +16,7 @@ import java.sql.Timestamp;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // 프로젝트에 연결된 DB의 넘버링 전략을 따라간다. : 여기서는 auto_increment를 사용한다.
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에 연결된 DB의 넘버링 전략을 따라간다. : 여기서는 auto_increment를 사용한다.
     private int id; // auto_increment
 
     @Column(nullable = false, length = 30)
