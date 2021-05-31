@@ -5,6 +5,10 @@ import com.kim.blog.model.User;
 import com.kim.blog.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,7 @@ public class UserService {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
+
 
     @Transactional // 회원가입 부분
     public void join(User user) {
@@ -39,5 +44,6 @@ public class UserService {
         String encPassword = encoder.encode(rawPassword);
         persistance.setPassword(encPassword);
         persistance.setEmail(user.getEmail());
+
     }
 }
