@@ -28,4 +28,16 @@ public class UserService {
         user.setRole(RoleType.USER);
         userRepository.save(user);
     }
+
+    @Transactional
+    public void updateUser(User user){
+        User persistance = userRepository.findById(user.getId())
+                .orElseThrow(()->{
+            return new IllegalArgumentException("회원찾기실패");
+        });
+        String rawPassword = user.getPassword();
+        String encPassword = encoder.encode(rawPassword);
+        persistance.setPassword(encPassword);
+        persistance.setEmail(user.getEmail());
+    }
 }

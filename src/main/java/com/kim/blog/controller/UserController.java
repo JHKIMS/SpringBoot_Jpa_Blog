@@ -21,4 +21,9 @@ public class UserController {
         System.out.println("로그인폼 부분이다.");
         return "user/loginForm";
     }
+
+    @GetMapping("/user/updateForm")
+    public String updateForm(){
+        return "user/updateForm";
+    }
 }
