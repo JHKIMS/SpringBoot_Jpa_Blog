@@ -14,11 +14,11 @@
 		</div>
 
 		<button id="btn-login" class="btn btn-primary">로그인</button>
-<%--		<a href="https://kauth.kakao.com/oauth/authorize?client_id=9cb8e85f7d86457608c1c50b988da6a2
-						&redirect_uri=http://localhost:8000/auth/kakao/callback
-						&response_type=code">
-						<img height="38px" src="/image/kakao_login_button.png"/>
-		</a>--%>
+		<a href="https://kauth.kakao.com/oauth/authorize?client_id=948dfcab19b378a4b34564c781522a30
+				&redirect_uri=http://localhost:8080/auth/kakao/callback
+				&response_type=code">
+			<img src="${pageContext.request.contextPath}/image/kakao_button.png"/>
+		</a>
 	</form>
 		
 	
