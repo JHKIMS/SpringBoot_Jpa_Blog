@@ -2,17 +2,17 @@ package com.kim.blog.config.auth;
 
 import com.kim.blog.model.User;
 import com.kim.blog.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class PrincipalDetailService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     /*스프링이 로그인 요청을 가로챌 때, username, password 변수 2개를 가로채는데
     password 부분 처리는 알아서 해준다.

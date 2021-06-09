@@ -4,6 +4,7 @@ import com.kim.blog.config.auth.PrincipalDetail;
 import com.kim.blog.dto.ResponseDto;
 import com.kim.blog.model.User;
 import com.kim.blog.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,19 +22,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
-
+@RequiredArgsConstructor
 @RestController
 public class UserApiController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody User user) {
         userService.join(user);
+        System.out.println("user정보"+user.toString());
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 

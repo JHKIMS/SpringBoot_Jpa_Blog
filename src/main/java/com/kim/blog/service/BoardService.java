@@ -5,36 +5,37 @@ import com.kim.blog.model.RoleType;
 import com.kim.blog.model.User;
 import com.kim.blog.repository.BoardRepository;
 import com.kim.blog.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class BoardService {
 
-    @Autowired
-    private BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
 
-    @Transactional // 회원가입 부분
+    @Transactional // 게시글 작성
     public void write(Board board, User user) {
-        board.setCount(0);
+        board.setCount(0); // 조회수
         board.setUser(user);
         boardRepository.save(board);
     }
 
     // 글 목록 뿌리기 + 페이징
-    @Transactional
+    @Transactional(readOnly = true)
     public Page<Board> list(Pageable pageable){
         return boardRepository.findAll(pageable);
     }
 
     // 글 상세보기
-    @Transactional
+    @Transactional(readOnly=true)
     public Board detailView(int id){
         return boardRepository.findById(id)
                 .orElseThrow(()->{
@@ -48,7 +49,7 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
-    @Transactional
+    @Transactional // 게시글 수정하기.
     public void updateBoard(int id, Board requestBoard){
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> {

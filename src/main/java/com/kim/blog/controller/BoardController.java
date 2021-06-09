@@ -3,6 +3,7 @@ package com.kim.blog.controller;
 import com.kim.blog.config.auth.PrincipalDetail;
 import com.kim.blog.service.BoardService;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -13,11 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+@RequiredArgsConstructor
 @Controller
 public class BoardController {
 
-    @Autowired
-    private BoardService boardService;
+    private final BoardService boardService;
 
     @GetMapping({"", "/"})
     public String index(Model model, @PageableDefault(size=3, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) { // 파라미터로 세션에 접근한다. @AuthenticationPrincipal PrincipalDetail principal
@@ -31,6 +32,8 @@ public class BoardController {
         return "board/saveForm";
     }
 
+
+    //  글 상세보기
     @GetMapping("/board/{id}")
     public String findById(@PathVariable int id, Model model) {
         model.addAttribute("board", boardService.detailView(id));

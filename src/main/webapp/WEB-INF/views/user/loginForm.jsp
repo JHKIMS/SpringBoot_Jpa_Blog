@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
 <div class="container">
+
 	<form action="/auth/loginProc" method="post">
 		<div class="form-group">
 			<label for="username">Username</label> 
@@ -14,10 +15,11 @@
 		</div>
 
 		<button id="btn-login" class="btn btn-primary">로그인</button>
+
 		<a href="https://kauth.kakao.com/oauth/authorize?client_id=948dfcab19b378a4b34564c781522a30
 				&redirect_uri=http://localhost:8080/auth/kakao/callback
 				&response_type=code">
-			<img src="${pageContext.request.contextPath}/image/kakao_button.png"/>
+			<img height="38px" src="/image/kakao_button.png"/>
 		</a>
 	</form>
 		

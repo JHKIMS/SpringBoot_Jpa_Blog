@@ -1,6 +1,7 @@
 package com.kim.blog.config;
 
 import com.kim.blog.config.auth.PrincipalDetailService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -16,10 +17,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration // 설정 파일이라고 알려주는 어노테이션
 @EnableWebSecurity // 스프링 시큐리티가 활성화가 되어있는데, 설정을 이 어노테이션이 걸린 파일에서 하겠다.
 @EnableGlobalMethodSecurity(prePostEnabled = true)// 특정 주소로 접근을 하면 권한 및 인증을 미리 체크한다는 뜻
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private PrincipalDetailService principalDetailService; // 이거를 밑에 configure 메소드 부분에 넣어줘야지 비밀번호 해쉬 비교가 가능해진다.
+    private final PrincipalDetailService principalDetailService;
+    // 이거를 밑에 configure 메소드 부분에 넣어줘야지 비밀번호 해쉬 비교가 가능해진다.
 
     @Bean
     // 이 함수를 호출함으로써 BCryptPasswordEncoder를 받을 수 있다. + 해쉬 시켜준다.
@@ -40,9 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable() // csrf토큰 비활성화 ( 테스트시 걸어두는 것이 좋다.)
-                .authorizeRequests()
-                .antMatchers("/", "/auth/**", "/js/**", "/css/**", "image/**")
-                // 이 주소를 제외한 모든 주소는 인증이 필요하다.
+                .authorizeRequests().antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**")// 이 주소를 제외한 모든 주소는 인증이 필요하다.
+
                 .permitAll()
                 .anyRequest()
                 .authenticated()

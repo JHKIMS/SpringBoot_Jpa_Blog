@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <sec:authorize access="isAuthenticated()">
-    <sec:authentication property="principal" var="principal"/>  <!-- principal은 PrincipalDetail.java이다 -->
+    <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
 <!--  세션 처리하는 방법 -->
 
