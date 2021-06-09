@@ -20,9 +20,11 @@ public class BoardController {
 
     private final BoardService boardService;
 
+// 파라미터로 세션에 접근한다. @AuthenticationPrincipal PrincipalDetail principal
+
     @GetMapping({"", "/"})
-    public String index(Model model, @PageableDefault(size=3, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) { // 파라미터로 세션에 접근한다. @AuthenticationPrincipal PrincipalDetail principal
-        model.addAttribute("boards", boardService.list(pageable));
+    public String index(Model model) {
+        model.addAttribute("boards", boardService.list());
         return "index";
     }
 

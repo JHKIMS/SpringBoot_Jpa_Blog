@@ -1,5 +1,7 @@
 ## BOOT+JPA 블로그
 
+### 기능 구현 정리
+- https://velog.io/@ddwj
 
 ### 의존성 추가</br>
 - Spring Boot DevTools</br>

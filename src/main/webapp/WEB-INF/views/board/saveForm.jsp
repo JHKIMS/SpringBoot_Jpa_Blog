@@ -13,12 +13,6 @@
         <textarea class="form-control summernote" rows="5" id="content"></textarea>
     </div>
 
-
-    <a href="https://kauth.kakao.com/oauth/authorize?client_id=9cb8e85f7d86457608c1c50b988da6a2
-						&redirect_uri=http://localhost:8000/auth/kakao/callback
-						&response_type=code">
-        <img height="38px" src="/image/kakao_login_button.png"/>
-    </a>
     </form>
     <button id="btn-save" class="btn btn-primary">글쓰기완료</button>
 </div>

@@ -42,7 +42,7 @@ public class UserService {
             return new IllegalArgumentException("회원찾기실패");
         });
 
-        // Validation체크 : 카카오 로그인을 한 유저는 패스워드 수정을 막아버린다(서버단)
+        // Validation체크 : 카카오 로그인을 한 유저는 패스워드 수정을 막아버린다(서버단) : 카카오 로그인 구현하면서 추가한 부분
         if(persistance.getOauth() == null || persistance.getOauth().equals("")){
             String rawPassword = user.getPassword();
             String encPassword = encoder.encode(rawPassword);

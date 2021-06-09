@@ -90,7 +90,7 @@ public class UserController {
         );
 
 
-        // OAuthToken(카카오에서 받은 사용자 토큰) 데이터 처리
+        // ReqUserToken (카카오에서 받은 사용자 토큰) 데이터 처리
         ObjectMapper objectMapper = new ObjectMapper();
 
         ReqUserToken oauthToken = null;
@@ -107,7 +107,7 @@ public class UserController {
 
         /*-------------------------------------------------------------------*/
 
-        // rt2는 카카오에서 받은 액세스 토큰을 사용해서 사용자 정보를 조회하는 것.
+        // rt2는 카카오에서 받은 액세스 토큰을 사용해서 사용자 정보(카카오 리소스에 접근)를 조회하는 것.
 
         RestTemplate rt2 = new RestTemplate();
 
@@ -117,8 +117,7 @@ public class UserController {
         headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
         // HttpHeader를 객체에 담아주자.
-        HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 =
-                new HttpEntity<>(headers2);
+        HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 = new HttpEntity<>(headers2);
 
 
         // HTTP 요청하기 - response변수의 응답 받음
@@ -165,13 +164,14 @@ public class UserController {
         // 기존 가입자인지 아닌지 확인해서 처리한다.
         User originUser = userService.findUser(kakaoUser.getUsername());
 
-        // 비가입자일 경우
+        // 비가입자일 경우 - 가입을 시킨 다음에 로그인 처리
         if(originUser.getUsername() == null){
             userService.join(kakaoUser);
         }
 
-        // 로그인 처리
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getUsername(), hoonKey));
+        // 기존 회원일 경우 그냥 로그인 처리
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getUsername(), hoonKey));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
 //        System.out.println("response2의 값은 : " + response2.getBody());

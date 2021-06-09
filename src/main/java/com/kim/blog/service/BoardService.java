@@ -28,10 +28,10 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    // 글 목록 뿌리기 + 페이징
+    // 글 목록
     @Transactional(readOnly = true)
-    public Page<Board> list(Pageable pageable){
-        return boardRepository.findAll(pageable);
+    public List<Board> list(){
+        return boardRepository.findAll();
     }
 
     // 글 상세보기

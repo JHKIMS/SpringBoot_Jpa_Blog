@@ -4,7 +4,7 @@
 <div class="container">
 
     <!-- 글 목록 뿌리는 부분 -->
-    <c:forEach var="board" items="${boards.content}">
+    <c:forEach var="board" items="${boards}">
         <div class="card m-2">
             <div class="card-body">
                 <h4 class="card-title">${board.title}</h4>
@@ -15,7 +15,7 @@
     <!-- 글 목록 뿌리는 부분 -->
 
     <!-- 페이징 하는 부분 -->
-    <ul class="pagination justify-content-center">
+    <%--<ul class="pagination justify-content-center">
         <c:choose>
             <c:when test="${boards.first}">
                 <li class="page-item disabled">
@@ -45,7 +45,7 @@
             </c:otherwise>
         </c:choose>
 
-    </ul>
+    </ul>--%>
     <!-- 페이징 처리 끝 -->
 </div>
 
