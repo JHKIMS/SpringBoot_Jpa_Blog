@@ -1,11 +1,19 @@
 package com.kim.blog.model;
 
+import com.kim.blog.dto.ReplySaveReqDto;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,4 +32,5 @@ public class Reply {
 
     @CreationTimestamp
     private Timestamp createDate;
+
 }

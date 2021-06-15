@@ -154,6 +154,8 @@ public class UserController {
 //        System.out.println("카카오로 로그인한 블로그 유저 이메일: " + kakaoProfile.getKakao_account().getEmail());
 //        System.out.println("카카오로 로그인한 블로그 유저 패스워드: " + garbagePassword);
 
+        // 데이터가없어도 Entity() 가 만들어지는게 문제 1.
+        // 제공하는 메소드안에서 Exception처리 힘들다.
         User kakaoUser = User.builder()
                 .username(kakaoProfile.getKakao_account().getEmail() + "_" + kakaoProfile.getId())
                 .password(hoonKey)

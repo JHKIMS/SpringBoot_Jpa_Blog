@@ -23,8 +23,8 @@ public class BoardController {
 // 파라미터로 세션에 접근한다. @AuthenticationPrincipal PrincipalDetail principal
 
     @GetMapping({"", "/"})
-    public String index(Model model) {
-        model.addAttribute("boards", boardService.list());
+    public String index(Model model,  @PageableDefault(size=3, sort = "id", direction = Sort.Direction.DESC)Pageable pageable) { // 파라미터로 세션에 접근한다. @AuthenticationPrincipal PrincipalDetail principal
+        model.addAttribute("boards", boardService.list(pageable));
         return "index";
     }
 
@@ -42,6 +42,7 @@ public class BoardController {
         return "board/detail";
     }
 
+    // 글 수정하기
     @GetMapping("/board/{id}/updateForm")
     public String updateForm(@PathVariable int id, Model model){
         model.addAttribute("board", boardService.detailView(id));

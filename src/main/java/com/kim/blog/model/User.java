@@ -1,12 +1,14 @@
 package com.kim.blog.model;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+
+// @Setter 제거
+// hashcode, equals 생성 .
 
 @Builder
 @Getter
@@ -37,4 +39,16 @@ public class User {
 
     @CreationTimestamp // 시간이 자동으로 입력된다.
     private Timestamp createDate;
+
+
+    public void changeInfo(String encPassword, String email) {
+        this.password = encPassword;
+        this.email = email;
+    }
+
+
+    public void signup(String encPassword, RoleType roleType) {
+        this.password = encPassword;
+        this.role = roleType;
+    }
 }

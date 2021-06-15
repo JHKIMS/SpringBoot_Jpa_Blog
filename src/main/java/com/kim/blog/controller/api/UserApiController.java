@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @RestController
@@ -34,7 +35,7 @@ public class UserApiController {
     public ResponseDto<Integer> save(@RequestBody User user) {
         userService.join(user);
         System.out.println("user정보"+user.toString());
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 
     @PutMapping("/user")
@@ -48,6 +49,6 @@ public class UserApiController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         // 세션 바꿔주기 끝
 
-        return new ResponseDto<Integer>(HttpStatus.OK.value(),1);
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 }

@@ -13,7 +13,7 @@ import java.util.Collection;
 /*스프링 시큐리티가 로그인 요청을 가로채서 로그인을 진행하고 완료가 되면 UserDetails 타입의 오브젝트를
 * 스프링 시큐리티의 고유한 세션저장소에 저장을 해준다.
 * 그때 저장되는게 PrincipalDetail이 저장이 된다.*/
-@Getter
+@Data
 public class PrincipalDetail implements UserDetails {
 
     private User user;
@@ -55,12 +55,7 @@ public class PrincipalDetail implements UserDetails {
     @Override  // 계정이 어떤 권한을 가지고 있는지 리턴을 한다.
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collectors = new ArrayList<>();
-
-        collectors.add(()
-                ->{
-            return "ROLE_"+user.getRole();
-        });
-
+        collectors.add(() ->"ROLE_"+user.getRole());
         return collectors;
     }
 }
